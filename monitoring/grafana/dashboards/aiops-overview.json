@@ -1,0 +1,37 @@
+{
+  "dashboard": {
+    "title": "AIOps Platform Overview",
+    "panels": [
+      {
+        "title": "Active Incidents",
+        "type": "stat",
+        "targets": [{"expr": "aiops_active_incidents_total"}]
+      },
+      {
+        "title": "MTTR (minutes)",
+        "type": "gauge",
+        "targets": [{"expr": "aiops_mttr_minutes"}]
+      },
+      {
+        "title": "AI Analysis Accuracy",
+        "type": "gauge",
+        "targets": [{"expr": "aiops_rca_accuracy_ratio"}]
+      },
+      {
+        "title": "Logs Ingested / min",
+        "type": "graph",
+        "targets": [{"expr": "rate(aiops_logs_ingested_total[1m])"}]
+      },
+      {
+        "title": "Anomalies Detected",
+        "type": "graph",
+        "targets": [{"expr": "rate(aiops_anomalies_detected_total[5m])"}]
+      },
+      {
+        "title": "Incidents by Severity",
+        "type": "piechart",
+        "targets": [{"expr": "aiops_incidents_by_severity"}]
+      }
+    ]
+  }
+}
