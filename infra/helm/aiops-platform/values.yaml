@@ -1,0 +1,66 @@
+# Default values for aiops-platform
+replicaCount: 3
+environment: production
+
+image:
+  repository: ghcr.io/your-org/aiops-platform
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8000
+
+ingress:
+  enabled: true
+  className: nginx
+  hosts:
+    - host: aiops.internal
+      paths:
+        - path: /
+          pathType: Prefix
+
+resources:
+  requests:
+    cpu: 500m
+    memory: 512Mi
+  limits:
+    cpu: 2000m
+    memory: 2Gi
+
+autoscaling:
+  enabled: true
+  minReplicas: 3
+  maxReplicas: 20
+  targetCPUUtilization: 70
+
+postgresql:
+  enabled: true
+  auth:
+    database: aiops
+    postgresPassword: change-me
+
+redis:
+  enabled: true
+  architecture: standalone
+
+rabbitmq:
+  enabled: true
+
+neo4j:
+  uri: bolt://neo4j:7687
+  auth: neo4j/password
+
+qdrant:
+  host: qdrant
+  port: 6333
+
+ollama:
+  baseUrl: http://ollama:11434
+  model: llama3.1:8b-instruct-q4_K_M
+
+ai:
+  anomalyConfidenceThreshold: 0.85
+  rcaConfidenceThreshold: 0.75
+  autoPRConfidenceThreshold: 0.90
